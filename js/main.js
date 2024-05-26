@@ -39,7 +39,7 @@ function isValidBookmarkURL() {
 // add bookmark
 function addBookmark() {
     if (isValidBookmarkName() && isValidBookmarkURL()) {
-        var bookmarkSite = { Name: siteName.value, URL: siteURL.value.toLowerCase() };
+        var bookmarkSite = { Name: siteName.value[0].toUpperCase()+ siteName.value.slice(1), URL: siteURL.value.toLowerCase() };
         
         if(bookmarkSite.URL.startsWith("https://")===false){
             bookmarkSite.URL="https://" + bookmarkSite.URL;
@@ -47,6 +47,8 @@ function addBookmark() {
         bookmarks.push(bookmarkSite);
         localStorage.setItem("bookmarksList", JSON.stringify(bookmarks));
         resetInputs();
+        siteName.classList.remove("is-valid","is-invalid");
+        siteURL.classList.remove("is-valid","is-invalid");
         displayBookmarks(bookmarks.length - 1);
     }
     else{
